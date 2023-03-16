@@ -11,7 +11,7 @@ public class MemberController extends Controller{
 	int lastMemberId = 3;
 	private List<Member> members;
 	private Scanner sc;
-	private Member loginedMember = null;
+	
 	
 	public MemberController(Scanner sc) {
 		this.members = new ArrayList<>();
@@ -44,10 +44,6 @@ public class MemberController extends Controller{
 
 
 	public void doJoin() {
-		if(islogined()) {
-			System.out.println("로그아웃 후 이용해주세요.");
-			return;
-		}
 		int id = lastMemberId + 1;
 		String loginId = null;
 		String loginPw = null;
@@ -105,10 +101,6 @@ public class MemberController extends Controller{
 	}
 	
 	private void doLogin() {
-		if(islogined()) {
-			System.out.println("로그아웃 후 이용해주세요.");
-			return;
-		}
 		System.out.printf("로그인 아이디 : ");
 		String loginId = sc.nextLine();
 		System.out.printf("로그인 비밀번호 : ");
@@ -130,28 +122,16 @@ public class MemberController extends Controller{
 		
 	}
 	private void doLogout() {
-		if(islogined()==false) {
-			System.out.println("로그인 후 이용해주세요.");
-			return;
-		}
 		System.out.println("로그아웃 되었습니다.");
 		loginedMember = null;
 		
 	}
 	
 	private void showProfile() {
-		if(islogined()==false) {
-			System.out.println("로그인 후 이용해주세요.");
-			return;
-		}
 		System.out.printf("회원 번호 : %d\n", loginedMember.id);
 		System.out.printf("아이디 : %s\n", loginedMember.loginId);
 		System.out.printf("이름 : %s\n", loginedMember.name);
 		return;
-	}
-	
-	private boolean islogined() {
-		return loginedMember != null;
 	}
 	
 	private boolean isJoinableLoginId(String loginId) {

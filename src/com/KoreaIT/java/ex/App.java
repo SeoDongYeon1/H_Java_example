@@ -45,12 +45,37 @@ public class App {
 				continue;
 			}
 			String actionMethodName = cmdDiv[1];
+			String forLoginCheck = controllerName + "/" + actionMethodName;
+			
 			
 			if(controllerName.equals("article")) {
 				controller = articleController;
 			}
 			else if(controllerName.equals("member")) {
 				controller = memberController;
+			}
+			
+			switch (forLoginCheck) {
+			case "article/write":
+			case "article/delete":
+			case "article/modify":
+			case "member/logout":
+			case "member/profile":
+				if(Controller.islogined()==false) {
+					System.out.println("로그인 후 이용해주세요.");
+					continue;
+				}
+				break;
+			}
+			
+			switch(forLoginCheck) {
+			case "member/login":
+			case "member/join":
+				if(Controller.islogined()) {
+					System.out.println("로그아웃 후 이용해주세요.");
+					continue;
+				}
+				break;
 			}
 
 			controller.doAction(actionMethodName, command);
