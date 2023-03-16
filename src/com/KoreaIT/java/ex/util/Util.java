@@ -1,4 +1,4 @@
-package com.KoreaIT.java.ex;
+package com.KoreaIT.java.ex.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
