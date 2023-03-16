@@ -7,7 +7,7 @@ import java.util.Scanner;
 import com.KoreaIT.java.ex.dto.Article;
 import com.KoreaIT.java.ex.util.Util;
 
-public class ArticleController {
+public class ArticleController extends Controller{
 	private List<Article> articles;
 	private Scanner sc;
 	
@@ -18,6 +18,30 @@ public class ArticleController {
 		this.sc = sc;
 	}
 
+	@Override
+	public void doAction(String actionMethodName, String command) {
+		switch (actionMethodName) {
+		case "write":
+			doWrite();
+			break;
+		case "list":
+			showList(command);
+			break;
+		case "detail":
+			showDatail(command);
+			break;
+		case "delete":
+			doDelete(command);
+			break;
+		case "modify":
+			doModify(command);
+			break;
+		default:
+			System.out.println("존재하지 않는 명령어입니다.");
+			break;
+		}
+	}
+	
 	public void showList(String command) {
 		if (articles.size() > 0) {
 			String searchKeyword = command.substring("article list".length()).trim();
@@ -178,6 +202,7 @@ public class ArticleController {
 		articles.add(new Article(2, Util.getNowDate(), "", "test2", "test2", 20));
 		articles.add(new Article(3, Util.getNowDate(), "", "test3", "test3", 30));
 	}
+
 
 	
 }

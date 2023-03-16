@@ -7,14 +7,29 @@ import java.util.Scanner;
 import com.KoreaIT.java.ex.dto.Member;
 import com.KoreaIT.java.ex.util.Util;
 
-public class MemberController {
-	int lastMemberId = 0;
+public class MemberController extends Controller{
+	int lastMemberId = 3;
 	private List<Member> members;
 	private Scanner sc;
 	
 	public MemberController(Scanner sc) {
 		members = new ArrayList<>();
 		this.sc = sc;
+	}
+	
+	@Override
+	public void doAction(String actionMethodName, String command) {
+		switch (actionMethodName) {
+		case "join":
+			doJoin();
+			break;
+		case "list":
+			showList();
+			break;
+		default:
+			System.out.println("존재하지 않는 명령어입니다.");
+			break;
+		}
 	}
 
 	public void doJoin() {

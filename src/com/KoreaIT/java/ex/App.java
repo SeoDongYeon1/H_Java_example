@@ -3,6 +3,7 @@ package com.KoreaIT.java.ex;
 import java.util.Scanner;
 
 import com.KoreaIT.java.ex.controller.ArticleController;
+import com.KoreaIT.java.ex.controller.Controller;
 import com.KoreaIT.java.ex.controller.MemberController;
 
 public class App {
@@ -17,6 +18,7 @@ public class App {
 		
 		MemberController memberController = new MemberController(sc);
 		ArticleController articleController = new ArticleController(sc);
+		Controller controller = null;
 		
 		articleController.maketestData();
 		memberController.maketestData();
@@ -33,24 +35,25 @@ public class App {
 			if (command.equals("exit")) {
 				break;
 			}
-
-			if (command.startsWith("article list")) {
-				articleController.showList(command);
-			} else if (command.equals("article write")) {
-				articleController.doWrite();
-			} else if (command.startsWith("article detail")) {
-				articleController.showDatail(command);
-			} else if (command.startsWith("article delete")) {
-				articleController.doDelete(command);
-			} else if (command.startsWith("article modify")) {
-				articleController.doModify(command);
-			} else if (command.equals("member join")) {
-				memberController.doJoin();
-			} else if (command.equals("member list")) {
-				memberController.showList();
-			} else {
-				System.out.println("존재하지 않는 명령어입니다.");
+			
+			String[] cmdDiv = command.split(" ");
+			
+			String controllerName = cmdDiv[0];
+			
+			if(cmdDiv.length==1) {
+				System.out.println("명령어를 확인해주세요.");
+				continue;
 			}
+			String actionMethodName = cmdDiv[1];
+			
+			if(controllerName.equals("article")) {
+				controller = articleController;
+			}
+			else if(controllerName.equals("member")) {
+				controller = memberController;
+			}
+
+			controller.doAction(actionMethodName, command);
 
 		}
 		System.out.println("==프로그램 끝==");
