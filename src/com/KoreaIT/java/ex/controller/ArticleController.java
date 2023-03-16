@@ -14,7 +14,7 @@ public class ArticleController extends Controller{
 	int lastArticleId = 3;
 	
 	public ArticleController(Scanner sc) {
-		articles = new ArrayList<>();
+		this.articles = new ArrayList<>();
 		this.sc = sc;
 	}
 
